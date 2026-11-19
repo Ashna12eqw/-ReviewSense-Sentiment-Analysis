@@ -1,0 +1,320 @@
+:root {
+    --primary: #1d4ed8;
+    --primary-light: #2563eb;
+    --positive: #16a34a;
+    --neutral: #f59e42;
+    --negative: #dc2626;
+    --light-bg: #f7fafc;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --dark: #1f2937;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.input-section, .result-section {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn:hover:not(:disabled) {
+    background-color: var(--primary-light);
+}
+
+.btn:disabled {
+    background-color: var(--gray);
+    cursor: not-allowed;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.result-container {
+    text-align: center;
+}
+
+.sentiment-result {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.positive {
+    color: var(--positive);
+    background-color: rgba(22, 163, 74, 0.1);
+}
+
+.neutral {
+    color: var(--neutral);
+    background-color: rgba(245, 158, 66, 0.1);
+}
+
+.negative {
+    color: var(--negative);
+    background-color: rgba(220, 38, 38, 0.1);
+}
+
+.polarity {
+    font-size: 1.1rem;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.chart-container {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.feature-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+footer {
+    background-color: var(--dark);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+}
+
+.copyright {
+    color: var(--gray);
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .logo {
+        font-size: 2rem;
+    }
+    
+    .sentiment-result {
+        font-size: 1.5rem;
+        min-height: 60px;
+    }
+}
+/* --- Center legend under pie chart and hide duplicate text --- */
+.chart-container img {
+    display: block;
+    margin: 0 auto;
+}
+
+.chart-container + p {
+    display: none;
+}
+
+/* --- Optional: make the pie chart area more balanced --- */
+.result-container {
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+/* --- Smooth fade-in animation for result section --- */
+.sentiment-result {
+    transition: all 0.3s ease-in-out;
+}
+/* Legend Styling */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.legend-box.positive {
+  background-color: var(--positive);
+}
+.legend-box.neutral {
+  background-color: var(--neutral);
+}
+.legend-box.negative {
+  background-color: var(--negative);
+}
+.chart-container {
+  display: none;
+}
+.chart-container.active {
+  display: block;
+}
+

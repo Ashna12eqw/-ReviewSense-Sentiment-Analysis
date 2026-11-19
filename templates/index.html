@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReviewSense - Sentiment Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">🧠</div>
+      <h1>ReviewSense Sentiment Analyzer</h1>
+      <p class="tagline">
+        Analyze the sentiment of your reviews with our advanced AI-powered tool
+      </p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <!-- Input Section -->
+      <section class="input-section">
+        <h2>Enter Your Review</h2>
+        <textarea id="reviewText" placeholder="Type your review here..."></textarea>
+        <button class="btn" id="analyzeBtn">
+          <span>🔍</span> Analyze Sentiment
+        </button>
+
+        <div class="loading" id="loading" style="display: none;">
+          <div class="spinner"></div> Analyzing...
+        </div>
+      </section>
+
+      <!-- Result Section -->
+      <section class="result-section">
+        <h2>Analysis Result</h2>
+        <div class="result-container">
+          <div id="sentimentResult" class="sentiment-result neutral">
+            Your result will appear here
+          </div>
+          <div id="polarityValue" class="polarity"></div>
+
+          <div class="chart-container">
+            <img id="sentimentChart" src="" alt="Sentiment Chart" style="display: none;" />
+            <div class="legend">
+              <span><span class="legend-box positive"></span> Positive</span>
+              <span><span class="legend-box neutral"></span> Neutral</span>
+              <span><span class="legend-box negative"></span> Negative</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Feature Section -->
+    <section class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Accurate Analysis</h3>
+        <p>Powered by TextBlob NLP library for precise sentiment detection.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">Real-time Processing</h3>
+        <p>Get instant results with our optimized sentiment analysis algorithm.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3 class="feature-title">Visual Reports</h3>
+        <p>Clear visualizations help you understand sentiment distribution at a glance.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">ReviewSense</div>
+        <p>© 2025 ReviewSense | Developed with 💙</p>
+        <p class="copyright">Powered by Flask & TextBlob</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    const reviewText = document.getElementById('reviewText');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const sentimentResult = document.getElementById('sentimentResult');
+    const polarityValue = document.getElementById('polarityValue');
+    const sentimentChart = document.getElementById('sentimentChart');
+    const loading = document.getElementById('loading');
+
+    async function analyzeSentiment() {
+      const text = reviewText.value.trim();
+      if (!text) return alert("Please enter a review!");
+
+      loading.style.display = 'flex';
+      analyzeBtn.disabled = true;
+      sentimentResult.textContent = "";
+      polarityValue.textContent = "";
+      sentimentChart.style.display = "none";
+
+      try {
+        const response = await fetch("/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text }),
+        });
+
+        const result = await response.json();
+        if (result.error) return alert(result.error);
+
+        sentimentResult.textContent = result.sentiment;
+        sentimentResult.className = `sentiment-result ${getColorClass(result.color)}`;
+
+        polarityValue.textContent = `Polarity: ${result.polarity}`;
+        sentimentChart.src = result.chart;
+        sentimentChart.style.display = "block";
+        document.querySelector(".chart-container").classList.add("active");
+
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while analyzing sentiment.");
+      } finally {
+        loading.style.display = "none";
+        analyzeBtn.disabled = false;
+      }
+    }
+
+    function getColorClass(color) {
+      if (color === "#16a34a") return "positive";
+      if (color === "#f59e42") return "neutral";
+      if (color === "#dc2626") return "negative";
+      return "neutral";
+    }
+
+    analyzeBtn.addEventListener("click", analyzeSentiment);
+
+    reviewText.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") analyzeSentiment();
+    });
+  </script>
+</body>
+</html>
