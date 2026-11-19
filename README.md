@@ -91,3 +91,16 @@ http://127.0.0.1:5000
 ## Future Enhancements
 
 - Improve sentiment classification accuracy.
+## Application Screenshots
+
+### Homepage
+![Homepage](screenshots/homepage.png)
+
+### Positive Sentiment
+![Positive Result](screenshots/positive-result.png)
+
+### Negative Sentiment
+![Negative Result](screenshots/negative-result.png)
+
+### Neutral Sentiment
+![Neutral Result](screenshots/neutral-result.png)
